@@ -38,7 +38,8 @@ Ship the parser fix and the other two keep coming. Each now has its own ticket.
    depends on the tenant's locale and booking form (`causeOf`). Every tenant on file writes the
    day first.
 3. **By what the report says.** A one-day move can't come from swapping day and month. The desk
-   already read these reports that way (`desk-notes.json`); here they leave the parser group.
+   already read these reports that way (`desk-notes.json`). They get their own ticket, and stay
+   counted where they're filed, as the desk counts.
 
 ## The three problems
 

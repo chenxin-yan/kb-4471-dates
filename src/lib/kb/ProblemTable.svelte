@@ -1,7 +1,7 @@
 <script lang="ts">
   import reports from '#lib/data/reports-4471.json';
   import notes from '#lib/data/desk-notes.json';
-  import { uniqueById, type Report } from '#lib/kb/causes';
+  import { causeOf, uniqueById, type Report } from '#lib/kb/causes';
   import { tenantOf } from '#lib/kb/locales';
   import { groupByProblem, type Problem } from '#lib/kb/problems';
 
@@ -9,7 +9,8 @@
 
   const rows = reports as Report[];
   const groups = $derived(groupByProblem(rows, ticket, tenantOf, notes.oneDayMove));
-  const merged = $derived(groups.reduce((n, g) => n + g.reports.length, 0));
+  const merged = $derived(uniqueById(rows).filter((r) => r.mergedInto === ticket).length);
+  const filedAs = (g: { reports: Report[] }) => [...new Set(g.reports.map((r) => causeOf(r, tenantOf(r)) ?? 'unplaced'))];
   const fmt = (n: Record<string, number>) =>
     Object.entries(n)
       .sort((a, b) => b[1] - a[1])
@@ -41,6 +42,10 @@
     {/each}
   </tbody>
 </table>
+
+{#each groups.filter((g) => g.problem === 'shift') as g (g.problem)}
+  <p class="small">The {g.reports.length} <code>shift</code> reports are also counted under <code>{filedAs(g).join(', ')}</code>, where they're filed by tenant.</p>
+{/each}
 
 <style>
   .sum { font-size: 1.05rem; }
