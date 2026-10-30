@@ -11,6 +11,8 @@ export default defineConfig({
       preprocess: [mdsvex({ extensions: ['.svx'], layout: { runbook: fileURLToPath(new URL('./src/lib/layouts/runbook.svelte', import.meta.url)) } })],
       adapter: adapter(),
       prerender: { entries: ['*'] },
+      // inline CSS so a single built page renders on its own
+      inlineStyleThreshold: Infinity,
     }),
   ],
 });

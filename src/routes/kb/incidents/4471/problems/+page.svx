@@ -13,9 +13,9 @@ signature: chenxin-yan
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 
   const issues = {
-    parser: '__ISSUE_PARSER__',
-    hint: '__ISSUE_HINT__',
-    shift: '__ISSUE_SHIFT__',
+    parser: 'https://github.com/chenxin-yan/kb-4471-dates/issues/1',
+    hint: 'https://github.com/chenxin-yan/kb-4471-dates/issues/2',
+    shift: 'https://github.com/chenxin-yan/kb-4471-dates/issues/3',
   };
 </script>
 
