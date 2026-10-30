@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · three problems, not one'
+title: '#4471 · two problems, not one'
 owner: chenxin-yan
 status: open
 reviewed: 2026-10-30
@@ -15,15 +15,14 @@ signature: chenxin-yan
   const issues = {
     parser: 'https://github.com/chenxin-yan/kb-4471-dates/issues/1',
     hint: 'https://github.com/chenxin-yan/kb-4471-dates/issues/2',
-    shift: 'https://github.com/chenxin-yan/kb-4471-dates/issues/3',
   };
 </script>
 
 [#4471](/kb/incidents/4471) is marked known: one bug, one fix queued. Read by what each report
-shows, it holds three problems. The queued parser fix closes only the first one.
+shows, it holds two problems. The queued parser fix closes only the first one.
 
 <Callout kind="warn">
-Ship the parser fix and the other two keep coming. Each now has its own ticket.
+Ship the parser fix and the booking-v3 reports keep coming. Each problem now has its own ticket.
 </Callout>
 
 ## What #4471 holds
@@ -37,11 +36,8 @@ Ship the parser fix and the other two keep coming. Each now has its own ticket.
 2. **By tenant, not by intake tag.** Intake guesses a tag from the reporter's browser. The cause
    depends on the tenant's locale and booking form (`causeOf`). Every tenant on file writes the
    day first.
-3. **By what the report says.** A one-day move can't come from swapping day and month. The desk
-   already read these reports that way (`desk-notes.json`). They get their own ticket, and stay
-   counted where they're filed, as the desk counts.
 
-## The three problems
+## The two problems
 
 - **`parser`**: the shared parser reads every date month first. A day-first tenant's 2 March
   comes out as 3 February. Every channel, every tenant on file.
@@ -49,14 +45,14 @@ Ship the parser fix and the other two keep coming. Each now has its own ticket.
   tenant's way. People type what the hint says and get the day and month swapped. Only the form
   channel, only booking-v3 tenants. The parser fix does not touch it: the hint must follow the
   tenant's locale.
-- **`shift`**: the date moves by one day, not by a swap. "Tuesday 12 May" shows as Monday 11 May,
-  a client in Lisbon gets Tuesday while Toronto gets Monday, an invite arrives before the booking.
-  This looks like a time zone or day-boundary bug, not a parse.
+
+A few reports read as a one-day move rather than a swap (`desk-notes.json`). They come from the
+same tenants through the same channels, so they are filed, and counted, under `parser`.
 
 ## Why they were merged
 
 Triage merges on subject line alone ([decision 0001](/kb/decisions/0001-dedupe-by-subject)).
-All three problems arrive under the same subjects ("Wrong day on the invite", "Month and day
+Both problems arrive under the same subjects ("Wrong day on the invite", "Month and day
 swapped?"), so the subject can't tell them apart. Placing a report needs its tenant, its channel
 and its body.
 
