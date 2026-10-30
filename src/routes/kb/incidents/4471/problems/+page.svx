@@ -22,8 +22,10 @@ signature: chenxin-yan
 shows, it holds two problems. The queued parser fix closes only the first one.
 
 <Callout>
+
 Closed 5 October. `parser` is fixed (fix(dates): parse dd/mm for eu locales). `hint` won't be
 fixed: the booking-v3 form is retired.
+
 </Callout>
 
 ## What #4471 holds
