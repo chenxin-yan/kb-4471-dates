@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · two problems, not one'
 owner: chenxin-yan
-status: open
+status: closed
 reviewed: 2026-10-30
 signature: chenxin-yan
 ---
@@ -21,8 +21,9 @@ signature: chenxin-yan
 [#4471](/kb/incidents/4471) is marked known: one bug, one fix queued. Read by what each report
 shows, it holds two problems. The queued parser fix closes only the first one.
 
-<Callout kind="warn">
-Ship the parser fix and the booking-v3 reports keep coming. Each problem now has its own ticket.
+<Callout>
+Closed 5 October. `parser` is fixed (fix(dates): parse dd/mm for eu locales). `hint` won't be
+fixed: the booking-v3 form is retired.
 </Callout>
 
 ## What #4471 holds
