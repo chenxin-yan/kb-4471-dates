@@ -4,7 +4,7 @@ title: '#4471 · two problems, not one'
 owner: chenxin-yan
 status: closed
 reviewed: 2026-10-30
-signature: chenxin-yan
+signature: v1.eyJzdWIiOiIxMzI1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMzMzM2NjEsImV4cCI6MTc5MzQyMDA2MX0.GxZjTQx01z_lHvdWTHk6JPwMKuEx3LePnAgUOfYuw38
 ---
 
 <script>
