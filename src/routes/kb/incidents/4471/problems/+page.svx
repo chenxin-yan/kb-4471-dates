@@ -1,0 +1,62 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: chenxin-yan
+status: open
+reviewed: 2026-10-30
+signature: chenxin-yan
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const issues = {
+    parser: '__ISSUE_PARSER__',
+    hint: '__ISSUE_HINT__',
+    shift: '__ISSUE_SHIFT__',
+  };
+</script>
+
+[#4471](/kb/incidents/4471) is marked known: one bug, one fix queued. Read by what each report
+shows, it holds three problems. The queued parser fix closes only the first one.
+
+<Callout kind="warn">
+Ship the parser fix and the other two keep coming. Each now has its own ticket.
+</Callout>
+
+## What #4471 holds
+
+<ProblemTable ticket={4471} {issues} />
+
+## How each report was placed
+
+1. **One id, one report.** The ticket export comes in overlapping pages, so some rows repeat.
+   Repeats are dropped before anything is counted (`uniqueById`).
+2. **By tenant, not by intake tag.** Intake guesses a tag from the reporter's browser. The cause
+   depends on the tenant's locale and booking form (`causeOf`). Every tenant on file writes the
+   day first.
+3. **By what the report says.** A one-day move can't come from swapping day and month. The desk
+   already read these reports that way (`desk-notes.json`); here they leave the parser group.
+
+## The three problems
+
+- **`parser`**: the shared parser reads every date month first. A day-first tenant's 2 March
+  comes out as 3 February. Every channel, every tenant on file.
+- **`hint`**: booking-v3's form prints `MM/DD/YYYY` under its date field, but reads the date the
+  tenant's way. People type what the hint says and get the day and month swapped. Only the form
+  channel, only booking-v3 tenants. The parser fix does not touch it: the hint must follow the
+  tenant's locale.
+- **`shift`**: the date moves by one day, not by a swap. "Tuesday 12 May" shows as Monday 11 May,
+  a client in Lisbon gets Tuesday while Toronto gets Monday, an invite arrives before the booking.
+  This looks like a time zone or day-boundary bug, not a parse.
+
+## Why they were merged
+
+Triage merges on subject line alone ([decision 0001](/kb/decisions/0001-dedupe-by-subject)).
+All three problems arrive under the same subjects ("Wrong day on the invite", "Month and day
+swapped?"), so the subject can't tell them apart. Placing a report needs its tenant, its channel
+and its body.
+
+<RenderStamp {signature} />
